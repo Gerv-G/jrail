@@ -9,4 +9,9 @@ public class FailedOperation<T> implements OperationResult<T> {
     public OperationResult<T> thenValidateWith(Predicate<T> rule) {
         return new FailedOperation<>();
     }
+
+    @Override
+    public <R> Executor<T, R> thenExecute(Function<T, R> command) {
+        return null;
+    }
 }

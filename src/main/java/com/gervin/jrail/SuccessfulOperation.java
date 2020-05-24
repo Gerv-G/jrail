@@ -1,5 +1,6 @@
 package com.gervin.jrail;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class SuccessfulOperation<T> implements OperationResult<T> {
@@ -15,5 +16,9 @@ public class SuccessfulOperation<T> implements OperationResult<T> {
         return rule.test(data)
             ? new SuccessfulOperation<>(data)
             : new FailedOperation<>();
+    }
+
+    public <R> Executor<T,R> thenExecute(Function<T,R> command) {
+        return new Executor<>(command, data);
     }
 }
