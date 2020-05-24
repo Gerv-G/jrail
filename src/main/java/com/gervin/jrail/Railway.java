@@ -1,5 +1,6 @@
 package com.gervin.jrail;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Railway<T> {
@@ -19,5 +20,9 @@ public class Railway<T> {
         return rule.test(this.input)
             ? new SuccessfulOperation<>(this.input)
             : new FailedOperation<>();
+    }
+
+    public <R> Executor<T,R> thenExecute(Function<T,R> command) {
+        return new Executor<>(command, input);
     }
 }
