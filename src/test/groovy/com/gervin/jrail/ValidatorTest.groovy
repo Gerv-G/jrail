@@ -138,4 +138,23 @@ class ValidatorTest extends Specification {
             result2 instanceof FailedOperation
             result3 instanceof FailedOperation
     }
+
+    def "Validator should be type safe"() {
+        given: "A test input"
+            def testInput = "Hello"
+
+        and: "An inappropriate rule"
+            def rule = { x -> x == 7 }
+
+        when: "the validator is invoked"
+            def result = Railway
+                    .forInput(testInput)
+                    .thenValidateWith(rule)
+
+        then:
+            //This should actually never happen
+            //Compile time checking should have never allowed the usage of the rule above
+            //See TypeSafetyTest.java
+            result instanceof FailedOperation
+    }
 }

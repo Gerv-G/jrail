@@ -2,18 +2,18 @@ package com.gervin.jrail;
 
 import java.util.function.Predicate;
 
-public class SuccessfulOperation implements OperationResult {
+public class SuccessfulOperation<T> implements OperationResult<T> {
 
-    private Object data;
+    private T data;
 
-    public SuccessfulOperation(Object validData) {
+    public SuccessfulOperation(T validData) {
         this.data = validData;
     }
 
     @Override
-    public OperationResult thenValidateWith(Predicate<Object> rule) {
+    public OperationResult<T> thenValidateWith(Predicate<T> rule) {
         return rule.test(data)
-            ? new SuccessfulOperation(data)
-            : new FailedOperation();
+            ? new SuccessfulOperation<>(data)
+            : new FailedOperation<>();
     }
 }

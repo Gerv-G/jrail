@@ -2,6 +2,6 @@ package com.gervin.jrail;
 
 import java.util.function.Predicate;
 
-public interface OperationResult {
-    OperationResult thenValidateWith(Predicate<Object> rule);
+public interface OperationResult<T> {
+    OperationResult<T> thenValidateWith(Predicate<T> rule);
 }

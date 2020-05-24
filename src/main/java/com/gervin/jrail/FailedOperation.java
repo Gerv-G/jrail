@@ -3,10 +3,10 @@ package com.gervin.jrail;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class FailedOperation implements OperationResult {
+public class FailedOperation<T> implements OperationResult<T> {
 
     @Override
-    public OperationResult thenValidateWith(Predicate<Object> rule) {
-        return new FailedOperation();
+    public OperationResult<T> thenValidateWith(Predicate<T> rule) {
+        return new FailedOperation<>();
     }
 }
