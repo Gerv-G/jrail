@@ -111,18 +111,31 @@ class ValidatorTest extends Specification {
             def testInput = 3
 
         and: "A validation rule"
-            def rule1 = { x -> x == 5 }
-            def rule2 = { x -> x > 0 }
-            def rule3 = { x -> x < 10 }
+            def satisfiedRule1 = { x -> x == 5 }
+            def unsatisfiedRule = { x -> x < 10 }
+            def satisfiedRule2 = { x -> x > 0 }
 
-        when: "The validator is invoked"
-            def result = Railway
-                    .forInput(testInput)
-                    .thenValidateWith(rule1)
-                    .thenValidateWith(rule2)
-                    .thenValidateWith(rule3)
+        when: "The unsatisfied rule is last"
+            def result1 = Railway.forInput(testInput)
+                    .thenValidateWith(satisfiedRule1)
+                    .thenValidateWith(unsatisfiedRule)
+                    .thenValidateWith(satisfiedRule2)
+
+        and: "The unsatisfied rule is in the middle"
+            def result2 = Railway.forInput(testInput)
+                    .thenValidateWith(satisfiedRule1)
+                    .thenValidateWith(satisfiedRule2)
+                    .thenValidateWith(unsatisfiedRule)
+
+        and: "The unsatisfied rule is first"
+            def result3 = Railway.forInput(testInput)
+                    .thenValidateWith(unsatisfiedRule)
+                    .thenValidateWith(satisfiedRule1)
+                    .thenValidateWith(satisfiedRule2)
 
         then:
-            result instanceof FailedOperation
+            result1 instanceof FailedOperation
+            result2 instanceof FailedOperation
+            result3 instanceof FailedOperation
     }
 }
