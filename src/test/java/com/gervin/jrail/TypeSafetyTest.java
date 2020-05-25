@@ -9,7 +9,7 @@ public class TypeSafetyTest {
     public void validRule() {
         int input = 5;
 
-        OperationResult<Integer> result
+        Operation<Integer> result
             = Railway.forInput(input)
                   .thenValidateWith(x -> x < 6);
 

@@ -6,7 +6,7 @@ class RailwayTest extends Specification {
 
     def "Validators can be chained with Executors"() {
         given:
-            int input = 3
+            def input = 3
             def rule1 = { x -> x > 0 }
             def rule2 = { x -> x < 10 }
             def command1 = { x -> x * x }

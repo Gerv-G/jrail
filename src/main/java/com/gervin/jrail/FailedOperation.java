@@ -3,11 +3,15 @@ package com.gervin.jrail;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class FailedOperation<T> implements OperationResult<T> {
+public class FailedOperation<T> extends Operation<T> {
+
+    FailedOperation(T data) {
+        super(data);
+    }
 
     @Override
-    public OperationResult<T> thenValidateWith(Predicate<T> rule) {
-        return new FailedOperation<>();
+    public Operation<T> thenValidateWith(Predicate<T> rule) {
+        return new FailedOperation<>(data);
     }
 
     @Override
