@@ -16,6 +16,6 @@ public class FailedOperation<T> extends Operation<T> {
 
     @Override
     public <R> Executor<T, R> thenExecute(Function<T, R> command) {
-        return null;
+        return new SkippedExecutor<>();
     }
 }

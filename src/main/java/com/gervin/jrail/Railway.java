@@ -22,7 +22,7 @@ public class Railway<T> {
             : new FailedOperation<>(input);
     }
 
-    public <R> Executor<T,R> thenExecute(Function<T,R> command) {
-        return new Executor<>(command, input);
+    public <R> ChainableExecutor<T,R> thenExecute(Function<T,R> command) {
+        return new ChainableExecutor<>(command, input);
     }
 }

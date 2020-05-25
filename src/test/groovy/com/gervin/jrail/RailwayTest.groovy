@@ -23,4 +23,20 @@ class RailwayTest extends Specification {
         then:
             result == 9/4
     }
+
+    def "Executors should not be invoked if validation failed"() {
+        given:
+            def input = 4
+            def rule = { x -> x >= 5 }
+            def command = { x -> x - 5 }
+
+        when:
+            def result = Railway.forInput(input)
+                .thenValidateWith(rule)
+                .thenExecute(command)
+                .getResult()
+
+        then:
+            result == null
+    }
 }

@@ -16,7 +16,8 @@ public class SuccessfulOperation<T> extends Operation<T> {
             : new FailedOperation<>(data);
     }
 
-    public <R> Executor<T,R> thenExecute(Function<T,R> command) {
-        return new Executor<>(command, data);
+    @Override
+    public <R> ChainableExecutor<T,R> thenExecute(Function<T,R> command) {
+        return new ChainableExecutor<>(command, data);
     }
 }
