@@ -2,16 +2,13 @@ package com.gervin.jrail;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
-public abstract class Validator<T> {
+public interface Validator<T> extends Operator<T> {
 
-    protected T data;
+    Validator<T> thenValidateWith(Predicate<T> rule);
 
-    protected Validator(T data) {
-        this.data = data;
-    }
+    <R> Executor<T,R> thenExecute(Function<T,R> command);
 
-    abstract Validator<T> thenValidateWith(Predicate<T> rule);
-
-    abstract <R> Executor<T,R> thenExecute(Function<T,R> command);
+    T orInFailureGet(Supplier<T> supplier);
 }

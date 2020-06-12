@@ -2,11 +2,14 @@ package com.gervin.jrail;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
-public class SuccessfulValidation<T> extends Validator<T> {
+public class SuccessfulValidation<T> implements Validator<T> {
+
+    private T data;
 
     SuccessfulValidation(T data) {
-        super(data);
+        this.data = data;
     }
 
     @Override
@@ -19,5 +22,15 @@ public class SuccessfulValidation<T> extends Validator<T> {
     @Override
     public <R> ChainableExecutor<T,R> thenExecute(Function<T,R> command) {
         return new ChainableExecutor<>(command, data);
+    }
+
+    @Override
+    public T getData() {
+        return data;
+    }
+
+    @Override
+    public T orInFailureGet(Supplier<T> supplier) {
+        return data;
     }
 }

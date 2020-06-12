@@ -127,4 +127,77 @@ class ValidatorTest extends Specification {
             //See TypeSafetyTest.java
             result instanceof FailedValidation
     }
+
+    def "Successful validation should not modify the data"() {
+        given: "A test input"
+            def testInput = 5
+
+        and: "A validation rule"
+            def rule = { x -> x == 5 }
+
+        when: "the validator is invoke"
+            def result = Railway
+                    .forInput(testInput)
+                    .thenValidateWith(rule)
+                    .getData()
+        then:
+            result == testInput
+    }
+
+    def "Failed validation should not modify the data"() {
+        given: "A test input"
+            def testInput = 4
+
+        and: "A validation rule"
+            def rule = { x -> x == 5 }
+
+        when: "the validator is invoke"
+            def result = Railway
+                    .forInput(testInput)
+                    .thenValidateWith(rule)
+                    .getData()
+
+        then:
+            result == testInput
+    }
+
+    def "A default value can be returned in case of failed validation"() {
+        given: "A test input"
+            def testInput = 4
+
+        and: "A validation rule"
+            def rule = { x -> x == 5 }
+
+        and: "An arbitrary default value"
+            def defaultValue = { -> 0 }
+
+        when: "the validator is invoked"
+            def result = Railway
+                    .forInput(testInput)
+                    .thenValidateWith(rule)
+                    .orInFailureGet(defaultValue)
+
+        then:
+            result == 0
+    }
+
+    def "Default value should NOT be used in case of successful validation"() {
+        given: "A test input"
+            def testInput = 5
+
+        and: "A validation rule"
+            def rule = { x -> x == 5 }
+
+        and: "An arbitrary default value"
+            def defaultValue = { -> 0 }
+
+        when: "the validator is invoke"
+            def result = Railway
+                    .forInput(testInput)
+                    .thenValidateWith(rule)
+                    .orInFailureGet(defaultValue)
+
+        then:
+            result == testInput
+    }
 }
