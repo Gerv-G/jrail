@@ -18,21 +18,6 @@ class ValidatorTest extends Specification {
 
         then:
             result instanceof SuccessfulOperation
-    }
-
-    def "A satisfied validation rule should NOT return a failed operation"() {
-        given: "A test input"
-            def testInput = 5
-
-        and: "A validation rule"
-            def rule = { x -> x == 5 }
-
-        when: "the validator is invoke"
-            def result = Railway
-                    .forInput(testInput)
-                    .thenValidateWith(rule)
-
-        then:
             !(result instanceof FailedOperation)
     }
 
@@ -50,21 +35,6 @@ class ValidatorTest extends Specification {
 
         then:
             result instanceof FailedOperation
-    }
-
-    def "An unsatisfied validation rule should NOT return a successful operation"() {
-        given: "A test input"
-            def testInput = 4
-
-        and: "A validation rule"
-            def rule = { x -> x == 5 }
-
-        when: "the validator is invoke"
-            def result = Railway
-                    .forInput(testInput)
-                    .thenValidateWith(rule)
-
-        then:
             !(result instanceof SuccessfulOperation)
     }
 
