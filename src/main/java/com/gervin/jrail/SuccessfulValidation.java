@@ -3,17 +3,17 @@ package com.gervin.jrail;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class SuccessfulOperation<T> extends Operation<T> {
+public class SuccessfulValidation<T> extends Validator<T> {
 
-    SuccessfulOperation(T data) {
+    SuccessfulValidation(T data) {
         super(data);
     }
 
     @Override
-    public Operation<T> thenValidateWith(Predicate<T> rule) {
+    public Validator<T> thenValidateWith(Predicate<T> rule) {
         return rule.test(data)
-            ? new SuccessfulOperation<>(data)
-            : new FailedOperation<>(data);
+            ? new SuccessfulValidation<>(data)
+            : new FailedValidation<>(data);
     }
 
     @Override

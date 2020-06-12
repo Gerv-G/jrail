@@ -15,11 +15,11 @@ public class Railway<T> {
         return new Railway<>(input);
     }
 
-    public Operation<T> thenValidateWith(Predicate<T> rule) {
+    public Validator<T> thenValidateWith(Predicate<T> rule) {
         //TODO: turn this into a lambda
         return rule.test(input)
-            ? new SuccessfulOperation<>(input)
-            : new FailedOperation<>(input);
+            ? new SuccessfulValidation<>(input)
+            : new FailedValidation<>(input);
     }
 
     public <R> ChainableExecutor<T,R> thenExecute(Function<T,R> command) {

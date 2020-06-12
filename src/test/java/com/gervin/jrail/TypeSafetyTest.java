@@ -9,11 +9,11 @@ public class TypeSafetyTest {
     public void validRule() {
         int input = 5;
 
-        Operation<Integer> result
+        Validator<Integer> result
             = Railway.forInput(input)
                   .thenValidateWith(x -> x < 6);
 
-        assert result instanceof SuccessfulOperation;
+        assert result instanceof SuccessfulValidation;
     }
 
     @Ignore

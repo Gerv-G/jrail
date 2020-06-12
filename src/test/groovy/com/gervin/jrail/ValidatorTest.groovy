@@ -17,8 +17,8 @@ class ValidatorTest extends Specification {
                     .thenValidateWith(rule)
 
         then:
-            result instanceof SuccessfulOperation
-            !(result instanceof FailedOperation)
+            result instanceof SuccessfulValidation
+            !(result instanceof FailedValidation)
     }
 
     def "An unsatisfied validation rule should return a failed operation"() {
@@ -34,8 +34,8 @@ class ValidatorTest extends Specification {
                     .thenValidateWith(rule)
 
         then:
-            result instanceof FailedOperation
-            !(result instanceof SuccessfulOperation)
+            result instanceof FailedValidation
+            !(result instanceof SuccessfulValidation)
     }
 
     def "Result should show a successful operation if all validation rules are satisfied"() {
@@ -53,7 +53,7 @@ class ValidatorTest extends Specification {
                     .thenValidateWith(rule2)
 
         then:
-            result instanceof SuccessfulOperation
+            result instanceof SuccessfulValidation
     }
 
     def "Result should show a failed operation if at least one rule is not satisfied"() {
@@ -73,7 +73,7 @@ class ValidatorTest extends Specification {
                     .thenValidateWith(rule3)
 
         then:
-            result instanceof FailedOperation
+            result instanceof FailedValidation
     }
 
     def "Order of rules should not matter"() {
@@ -104,9 +104,9 @@ class ValidatorTest extends Specification {
                     .thenValidateWith(satisfiedRule2)
 
         then:
-            result1 instanceof FailedOperation
-            result2 instanceof FailedOperation
-            result3 instanceof FailedOperation
+            result1 instanceof FailedValidation
+            result2 instanceof FailedValidation
+            result3 instanceof FailedValidation
     }
 
     def "Validator should be type safe"() {
@@ -125,6 +125,6 @@ class ValidatorTest extends Specification {
             //This should actually never happen
             //Compile time checking should have never allowed the usage of the rule above
             //See TypeSafetyTest.java
-            result instanceof FailedOperation
+            result instanceof FailedValidation
     }
 }
