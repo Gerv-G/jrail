@@ -21,7 +21,7 @@ public class TypeSafetyTest {
     public void invalidRule() {
         String input = "hello";
 
-//        OperationResult<Integer> result
+//        Operation<Integer> result
 //            = Railway.forInput(input)
 //                  .thenValidateWith(x -> x < 6);    //lambda expression here is invalid
 
