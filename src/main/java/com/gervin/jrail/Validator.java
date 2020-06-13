@@ -10,5 +10,5 @@ public interface Validator<T> extends Operator<T> {
 
     <R> Executor<T,R> thenExecute(Function<T,R> command);
 
-    T orInFailureGet(Supplier<T> supplier);
+    Validator<T> orInFailureUse(Supplier<T> supplier);
 }

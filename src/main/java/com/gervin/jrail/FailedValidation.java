@@ -28,7 +28,7 @@ public class FailedValidation<T> implements Validator<T> {
     }
 
     @Override
-    public T orInFailureGet(Supplier<T> supplier) {
-        return supplier.get();
+    public Validator<T> orInFailureUse(Supplier<T> supplier) {
+        return new SuccessfulValidation<>(supplier.get());
     }
 }

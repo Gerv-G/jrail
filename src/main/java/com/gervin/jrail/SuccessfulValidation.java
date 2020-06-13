@@ -30,7 +30,7 @@ public class SuccessfulValidation<T> implements Validator<T> {
     }
 
     @Override
-    public T orInFailureGet(Supplier<T> supplier) {
-        return data;
+    public Validator<T> orInFailureUse(Supplier<T> supplier) {
+        return new SuccessfulValidation<>(data);
     }
 }

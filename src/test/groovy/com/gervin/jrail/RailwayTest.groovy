@@ -39,4 +39,40 @@ class RailwayTest extends Specification {
         then:
             result == null
     }
+
+    def "Executors should use the given default value if validation failed"() {
+        given:
+            def input = 4
+            def rule = { x -> x >= 5 }
+            def command = { x -> x - 5 }
+            def defaultValue = { -> 0 }
+
+        when:
+            def result = Railway.forInput(input)
+                    .thenValidateWith(rule)
+                    .orInFailureUse(defaultValue)
+                    .thenExecute(command)
+                    .getResult()
+
+        then:
+            result == -5
+    }
+
+    def "Executors should NOT use the given default value if validation succeeded"() {
+        given:
+            def input = 20
+            def rule = { x -> x >= 5 }
+            def command = { x -> x - 5 }
+            def defaultValue = { -> 0 }
+
+        when:
+            def result = Railway.forInput(input)
+                    .thenValidateWith(rule)
+                    .orInFailureUse(defaultValue)
+                    .thenExecute(command)
+                    .getResult()
+
+        then:
+            result == 15
+    }
 }

@@ -175,8 +175,8 @@ class ValidatorTest extends Specification {
             def result = Railway
                     .forInput(testInput)
                     .thenValidateWith(rule)
-                    .orInFailureGet(defaultValue)
-
+                    .orInFailureUse(defaultValue)
+                    .getData()
         then:
             result == 0
     }
@@ -195,7 +195,8 @@ class ValidatorTest extends Specification {
             def result = Railway
                     .forInput(testInput)
                     .thenValidateWith(rule)
-                    .orInFailureGet(defaultValue)
+                    .orInFailureUse(defaultValue)
+                    .getData()
 
         then:
             result == testInput
