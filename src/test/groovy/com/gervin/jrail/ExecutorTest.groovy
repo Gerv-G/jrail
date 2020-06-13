@@ -78,4 +78,19 @@ class ExecutorTest extends Specification {
             result2 == ((5 + 34) * 4) - 19
             result3 == ((5 - 19) + 34) * 4
     }
+
+    def "Executors should catch an exception and return a default value"() {
+        given:
+            def input = "foo"
+            def command = { x -> throw new RuntimeException() }
+            def defaultReturnValue = { -> "bar" }
+
+        when:
+            def result = Railway.forInput(input)
+                    .thenExecute(command)
+                    .getResultOrDefault(defaultReturnValue)
+
+        then:
+            result == "bar"
+    }
 }

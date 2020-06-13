@@ -1,6 +1,7 @@
 package com.gervin.jrail;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class SkippedExecutor<T,R> implements Executor<T,R> {
 
@@ -10,7 +11,12 @@ public class SkippedExecutor<T,R> implements Executor<T,R> {
     }
 
     @Override
+    public R getResultOrDefault(Supplier<R> defaultReturnValue) {
+        return defaultReturnValue.get();
+    }
+
+    @Override
     public R getResult() {
-        return null;
+        throw new FailedValidationException();
     }
 }

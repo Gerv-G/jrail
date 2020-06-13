@@ -1,5 +1,6 @@
 package com.gervin.jrail
 
+import spock.lang.Ignore
 import spock.lang.Specification
 
 class RailwayTest extends Specification {
@@ -31,13 +32,13 @@ class RailwayTest extends Specification {
             def command = { x -> x - 5 }
 
         when:
-            def result = Railway.forInput(input)
+            Railway.forInput(input)
                 .thenValidateWith(rule)
                 .thenExecute(command)
                 .getResult()
 
         then:
-            result == null
+            thrown FailedValidationException
     }
 
     def "Executors should use the given default value if validation failed"() {
@@ -74,5 +75,22 @@ class RailwayTest extends Specification {
 
         then:
             result == 15
+    }
+
+    def "Default return value should be returned if execution is skipped due to failed validation"() {
+        given:
+            def input = 4
+            def rule = { x -> x >= 5 }
+            def command = { x -> x - 5 }
+            def defaultReturnValue = { -> 0 }
+
+        when:
+            def result = Railway.forInput(input)
+                    .thenValidateWith(rule)
+                    .thenExecute(command)
+                    .getResultOrDefault(defaultReturnValue)
+
+        then:
+            result == 0
     }
 }
