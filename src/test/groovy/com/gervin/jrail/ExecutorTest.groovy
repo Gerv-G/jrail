@@ -93,4 +93,34 @@ class ExecutorTest extends Specification {
         then:
             result == "bar"
     }
+
+    def "Executors should catch an exception and allow handling"() {
+        given:
+            def input = "foo"
+            def command = { x -> throw new RuntimeException() }
+            def exceptionHandling = { x -> x + "bar" }
+
+        when:
+            def result = Railway.forInput(input)
+                    .thenExecute(command)
+                    .orInFailureDo(exceptionHandling)
+
+        then:
+            result == "foobar"
+    }
+
+    def "Executors should catch an exception and rethrow"() {
+        given:
+            def input = "foo"
+            def command = { x -> throw new RuntimeException() }
+            def exceptionSupplier = { -> new CustomTestException() }
+
+        when:
+            Railway.forInput(input)
+                    .thenExecute(command)
+                    .orInFailureThrow(exceptionSupplier)
+
+        then:
+            thrown CustomTestException
+    }
 }

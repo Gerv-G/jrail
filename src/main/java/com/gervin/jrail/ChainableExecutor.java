@@ -19,6 +19,19 @@ public class ChainableExecutor<T,R> implements Executor<T,R> {
     }
 
     @Override
+    public R orInFailureDo(Function<T, R> failureHandler) {
+        return failureHandler.apply(input);
+    }
+
+    public <X extends Throwable> R orInFailureThrow(Supplier<? extends X> exceptionSupplier) throws X {
+        try {
+            return command.apply(input);
+        } catch (Exception e) {
+            throw exceptionSupplier.get();
+        }
+    }
+
+    @Override
     public R getResultOrDefault(Supplier<R> defaultReturnValue) {
         try {
             return command.apply(input);

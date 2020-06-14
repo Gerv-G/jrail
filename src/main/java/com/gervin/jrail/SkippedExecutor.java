@@ -11,6 +11,11 @@ public class SkippedExecutor<T,R> implements Executor<T,R> {
     }
 
     @Override
+    public R orInFailureDo(Function<T, R> failureHandler) {
+        throw new FailedValidationException();
+    }
+
+    @Override
     public R getResultOrDefault(Supplier<R> defaultReturnValue) {
         return defaultReturnValue.get();
     }
