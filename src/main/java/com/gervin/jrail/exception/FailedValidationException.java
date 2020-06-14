@@ -1,4 +1,4 @@
-package com.gervin.jrail;
+package com.gervin.jrail.exception;
 
 public class FailedValidationException extends RuntimeException {
     public FailedValidationException() {

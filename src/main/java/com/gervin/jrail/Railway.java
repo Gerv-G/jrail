@@ -1,5 +1,9 @@
 package com.gervin.jrail;
 
+import com.gervin.jrail.executor.ChainableExecutor;
+import com.gervin.jrail.validator.FailedValidation;
+import com.gervin.jrail.validator.SuccessfulValidation;
+
 import java.util.function.Function;
 import java.util.function.Predicate;
 

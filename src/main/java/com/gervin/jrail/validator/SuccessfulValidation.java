@@ -1,4 +1,7 @@
-package com.gervin.jrail;
+package com.gervin.jrail.validator;
+
+import com.gervin.jrail.Validator;
+import com.gervin.jrail.executor.ChainableExecutor;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -8,7 +11,7 @@ public class SuccessfulValidation<T> implements Validator<T> {
 
     private T data;
 
-    SuccessfulValidation(T data) {
+    public SuccessfulValidation(T data) {
         this.data = data;
     }
 

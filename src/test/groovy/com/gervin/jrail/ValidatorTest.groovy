@@ -1,5 +1,7 @@
 package com.gervin.jrail
 
+import com.gervin.jrail.validator.FailedValidation
+import com.gervin.jrail.validator.SuccessfulValidation
 import spock.lang.Specification
 
 class ValidatorTest extends Specification {

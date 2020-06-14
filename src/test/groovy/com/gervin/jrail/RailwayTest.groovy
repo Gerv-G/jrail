@@ -1,6 +1,6 @@
 package com.gervin.jrail
 
-import spock.lang.Ignore
+import com.gervin.jrail.exception.FailedValidationException
 import spock.lang.Specification
 
 class RailwayTest extends Specification {

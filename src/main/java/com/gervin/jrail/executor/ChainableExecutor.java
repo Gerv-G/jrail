@@ -1,4 +1,6 @@
-package com.gervin.jrail;
+package com.gervin.jrail.executor;
+
+import com.gervin.jrail.Executor;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -8,7 +10,7 @@ public class ChainableExecutor<T,R> implements Executor<T,R> {
     private final T input;
     private final Function<T,R> command;
 
-    ChainableExecutor(Function<T, R> command, T input) {
+    public ChainableExecutor(Function<T, R> command, T input) {
         this.command = command;
         this.input = input;
     }

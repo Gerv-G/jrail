@@ -1,5 +1,6 @@
 package com.gervin.jrail;
 
+import com.gervin.jrail.validator.SuccessfulValidation;
 import org.junit.Ignore;
 import org.junit.Test;
 

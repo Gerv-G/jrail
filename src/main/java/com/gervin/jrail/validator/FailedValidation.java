@@ -1,4 +1,8 @@
-package com.gervin.jrail;
+package com.gervin.jrail.validator;
+
+import com.gervin.jrail.Executor;
+import com.gervin.jrail.Validator;
+import com.gervin.jrail.executor.SkippedExecutor;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -8,7 +12,7 @@ public class FailedValidation<T> implements Validator<T> {
 
     private T invalidData;
 
-    FailedValidation(T invalidData) {
+    public FailedValidation(T invalidData) {
         this.invalidData = invalidData;
     }
 

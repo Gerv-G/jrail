@@ -1,4 +1,7 @@
-package com.gervin.jrail;
+package com.gervin.jrail.executor;
+
+import com.gervin.jrail.Executor;
+import com.gervin.jrail.exception.FailedValidationException;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
