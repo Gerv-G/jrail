@@ -1,5 +1,4 @@
 plugins {
-    id 'groovy'
     id 'java'
 }
 
@@ -13,6 +12,9 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    testImplementation 'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'org.junit.jupiter:junit-jupiter:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
 }
