@@ -6,12 +6,10 @@ name: Java CI with Gradle
 on:
   push:
     branches:
-      - master
-      - develop
+      - '*'
   pull_request:
     branches:
-      - master
-      - develop
+      - '*'
 
 jobs:
   build:
@@ -29,6 +27,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    needs: build
     if: success() && github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
