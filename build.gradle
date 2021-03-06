@@ -1,6 +1,8 @@
 plugins {
     id 'java'
+    id 'java-library'
     id 'maven-publish'
+    id 'signing'
 }
 
 group 'io.github.gerv-g'
@@ -20,10 +22,70 @@ test {
     useJUnitPlatform()
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
 publishing {
+    repositories {
+        maven {
+            name = 'MavenCentral'
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            credentials {
+                def mavenUser = findProperty("MAVEN_UPLOAD_USER")
+                def mavenPwd = findProperty("MAVEN_UPLOAD_PWD")
+                username = mavenUser
+                password = mavenPwd
+            }
+        }
+    }
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifact(tasks['sourcesJar'])
+            artifact(tasks['javadocJar'])
+
+            pom {
+                name = 'jrail'
+                description = 'A library for implementing railway-oriented programming in Java'
+                url = 'https://github.com/Gerv-G/jrail'
+
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://raw.githubusercontent.com/Gerv-G/jrail/master/LICENSE.md'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'gerv-g'
+                        name = 'Gervin Guevarra'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git:https://github.com/Gerv-G/jrail.git'
+                    developerConnection = 'scm:git:ssh:git@github.com:Gerv-G/jrail.git'
+                    url = 'https://github.com/Gerv-G/jrail'
+                }
+            }
         }
     }
+}
+
+signing {
+    String signingKey = findProperty("signingKey")
+    String signingPassword = findProperty("signingPassword")
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign publishing.publications.mavenJava
 }
