@@ -38,4 +38,4 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Publish artifact
-        run: ./gradlew -PMAVEN_UPLOAD_USER=${{ secrets.SONATYPE_USER }} -PMAVEN_UPLOAD_PWD=${{ secrets.SONATYPE_PASSWORD }} -PPGP_SIGNING_KEY="${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}" -PPGP_SIGNING_PASSWORD="${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}" build publish -x test
+        run: ./gradlew -PMAVEN_UPLOAD_USER=${{ secrets.SONATYPE_USER }} -PMAVEN_UPLOAD_PWD=${{ secrets.SONATYPE_PASSWORD }} -PPGP_SIGNING_KEY=${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }} -PPGP_SIGNING_PASSWORD=${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }} build publish -x test
