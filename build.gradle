@@ -36,7 +36,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 publishing {
     repositories {
         maven {
-            name = 'MavenCentral'
+            name = 'JRail'
             url = "https://maven.pkg.github.com/Gerv-G/jrail"
 
             credentials {
