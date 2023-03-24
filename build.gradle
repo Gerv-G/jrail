@@ -37,18 +37,15 @@ publishing {
     repositories {
         maven {
             name = 'MavenCentral'
-            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
-            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            url = "https://maven.pkg.github.com/Gerv-G/jrail"
 
             credentials {
-                def mavenUser = findProperty("MAVEN_UPLOAD_USER")
-                def mavenPwd = findProperty("MAVEN_UPLOAD_PWD")
-                username = mavenUser
-                password = mavenPwd
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
+
     publications {
         mavenJava(MavenPublication) {
             from components.java
